@@ -1,24 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { Rating } from 'primereact/rating';  
+import { Rating } from 'primereact/rating';
 import { useNavigate } from 'react-router-dom';
+import { fetchBooks } from '../api/bookApi';
 import 'primeflex/primeflex.css'; 
+import '../components/Home.css'; 
 
-function Home({ books }) {
+function Home() {
   const navigate = useNavigate();
-  const [filteredBooks, setFilteredBooks] = useState(books);
+  const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filteredBooks, setFilteredBooks] = useState([]);
+
+  useEffect(() => {
+    const getBooks = async () => {
+      const booksFromApi = await fetchBooks();
+      setBooks(booksFromApi);
+    };
+
+    getBooks();
+  }, []);
+
+  useEffect(() => {
+    const filtered = books.filter(book =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredBooks(filtered);
+  }, [searchTerm, books]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-
-    const filteredBooks = books.filter(book =>
-      book.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
-      book.author.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setFilteredBooks(filteredBooks);
   };
 
   return (
@@ -34,21 +48,24 @@ function Home({ books }) {
           />
         </span>
       </div>
+      <div>
+        {filteredBooks.length === 0 && <h1 className="p-text-center">No books found!</h1>}
+      </div>
 
-      <div className="p-grid">
-        {filteredBooks.map(book => (
-          <div key={book.id} className="">
+      <div className="book-grid">
+        {filteredBooks.map((book) => (
+          <div key={book.id} className="book-card">
             <Card className="p-card p-shadow-3">
               <img 
-                src={book.imgUrl} 
+                src="https://via.placeholder.com/200"
                 alt={book.title} 
                 style={{ width: '100%', height: '200px', objectFit: 'cover' }}
               />
               <div className="p-card-content p-text-center">
                 <h3 className="p-mb-2">{book.title}</h3>
-                <p className="p-mb-2">Yazar: {book.author}</p>
-                <p className="p-mb-2">Fiyat: {book.price} TL</p>
-                <Rating value={book.rating} readOnly stars={5} cancel={false} className="p-mb-2" />
+                <p className="p-mb-2">Author: {book.author}</p>
+                <p className="p-mb-2">Price: {book.price} TL</p>
+                <Rating value={5} readOnly stars={5} cancel={false} className="p-mb-2" />
                 <Button 
                   label="Details" 
                   icon="pi pi-info-circle" 

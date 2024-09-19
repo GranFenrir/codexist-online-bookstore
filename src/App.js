@@ -6,10 +6,16 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import './App.css';
 import Home from './pages/Home';
-import BookDetails from './pages/BookDetails';
+import BookDetails from './components/BookDetails';
 import ShoppingCart from './pages/ShoppingCart';
+import { CartProvider } from './components/CartContent';
 
 function App() {
+  const items = [
+    { label: 'Home', icon: 'pi pi-fw pi-home', command: () => { window.location = "/" } },
+    { label: 'ShoppingCart', icon: 'pi pi-fw pi-shopping-cart', command: () => { window.location = "/shoppingcart" } }
+  ];
+
   const initialBooks = [
     { 
       id: 1, 
@@ -34,28 +40,24 @@ function App() {
       price: 565.43, 
       rating: 4, 
       imgUrl: 'https://example.com/mockingbird.jpg'
-    }
-  ];
-
-  const items = [
-    { label: 'Home', icon: 'pi pi-fw pi-home', command: () => { window.location = "/" } },
-    { label: 'BookDetails', icon: 'pi pi-fw pi-info', command: () => { window.location = "/bookdetails" } },
-    { label: 'ShoppingCart', icon: 'pi pi-fw pi-envelope', command: () => { window.location = "/shoppingcart" } }
+    },
   ];
 
   return (
-    <Router>
-      <div className="App">
-        <Menubar model={items} />
-        <div className="content">
-          <Routes>
-            <Route exact path="/" element={<Home books={initialBooks} />} />
-            <Route path="/bookdetails/:id" element={<BookDetails books={initialBooks} />} />
-            <Route path="/shoppingcart" element={<ShoppingCart />} />
-          </Routes>
+    <CartProvider>
+      <Router>
+        <div className="App">
+          <Menubar model={items} />
+          <div className="content">
+            <Routes>
+              <Route exact path="/" element={<Home books={initialBooks} />} />
+              <Route path="/bookdetails/:id" element={<BookDetails books={initialBooks} />} />
+              <Route path="/shoppingcart" element={<ShoppingCart />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </CartProvider>
   );
 }
 

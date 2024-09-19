@@ -1,30 +1,30 @@
-import React from "react";
+import React, { useContext } from 'react';
+import { CartContext } from '../components/CartContent';
 
 const ShoppingCart = () => {
-    return (
-        <div>
-            <header>
-                <h1>Shopping Cart</h1>
-            </header>
-            <main>
-                <section>
-                    <h2>Items in Cart</h2>
-                    <div className="cart-items">
-                        {/* Add cart item components or cart item details here */}
-                    </div>
-                </section>
-                <section>
-                    <h2>Order Summary</h2>
-                    <div className="order-summary">
-                        {/* Add order summary components or order summary details here */}
-                    </div>
-                </section>
-            </main>
-            <footer>
-                <p>&copy; 2023 Online Bookstore. All rights reserved.</p>
-            </footer>
-        </div>
-    );
+  const { cartItems, removeFromCart } = useContext(CartContext);
+
+  return (
+    <div className="shopping-cart">
+      <h1>Your Shopping Cart</h1>
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul>
+          {cartItems.map((book) => (
+            <li key={book.id}>
+              <img src={book.imgUrl} alt={book.title} width="50" />
+              <div>
+                <h3>{book.title}</h3>
+                <p>{book.price} TL</p>
+                <button onClick={() => removeFromCart(book.id)}>Remove</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 };
 
 export default ShoppingCart;

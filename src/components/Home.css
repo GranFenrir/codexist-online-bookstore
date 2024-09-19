@@ -1,0 +1,44 @@
+.home-container {
+    padding: 1rem;
+  }
+  
+  .book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; 
+  }
+  
+  .book-card {
+    flex: 1 1 calc(20% - 1rem); 
+    max-width: calc(20% - 1rem);
+  }
+  
+  /* Mobile View */
+  @media (max-width: 1200px) {
+    .book-card {
+      flex: 1 1 calc(25% - 1rem); 
+      max-width: calc(25% - 1rem);
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .book-card {
+      flex: 1 1 calc(33.33% - 1rem);
+      max-width: calc(33.33% - 1rem);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .book-card {
+      flex: 1 1 calc(50% - 1rem); 
+      max-width: calc(50% - 1rem);
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .book-card {
+      flex: 1 1 calc(100% - 1rem);
+      max-width: calc(100% - 1rem);
+    }
+  }
+  
