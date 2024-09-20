@@ -1,32 +1,32 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { CartContext } from '../components/CartContent'; 
-import { fetchBooks } from '../api/bookApi'; // API fonksiyonunu içe aktar
+import { CartContext } from '../components/CartContent';
+import { fetchBooks } from '../api/bookApi';
 
 const BookDetails = () => {
-  const { id } = useParams(); 
-  const [book, setBook] = useState(null); 
+  const { id } = useParams();
+  const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const { addToCart } = useContext(CartContext); 
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const getBookDetails = async () => {
       const booksFromApi = await fetchBooks();
       const foundBook = booksFromApi.find((b) => b.id === id);
       setBook(foundBook);
-      setLoading(false); 
+      setLoading(false);
     };
 
     getBookDetails();
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   if (!book) {
-    return <div>Book not found!</div>; 
+    return <div>Book not found!</div>;
   }
 
   return (
@@ -36,15 +36,16 @@ const BookDetails = () => {
       </div>
       <div className="p-col-12 p-md-6">
         <h1>{book.title}</h1>
-        <h3>Yazar: {book.author}</h3>
-        <p>Detaylar: {book.details}</p>
-        <p>Fiyat: {book.price} TL</p>
-        <button 
-          className="p-button p-component"
-          onClick={() => addToCart(book)}
-        >
-          Add to Cart
-        </button>
+        <h3>Author: {book.author}</h3>
+        <p>Details: {book.details}</p>
+        <p>Price: {book.price} TL</p>
+        <button className="p-button p-component" onClick={() => {
+  addToCart(book);
+  console.log('Added to cart:', book);
+}}>
+  Add to Cart
+</button>
+
       </div>
     </div>
   );

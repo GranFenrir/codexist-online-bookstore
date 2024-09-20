@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
 import 'primereact/resources/themes/saga-blue/theme.css';
@@ -16,33 +15,6 @@ function App() {
     { label: 'ShoppingCart', icon: 'pi pi-fw pi-shopping-cart', command: () => { window.location = "/shoppingcart" } }
   ];
 
-  const initialBooks = [
-    { 
-      id: 1, 
-      title: 'The Great Gatsby', 
-      author: 'F. Scott Fitzgerald', 
-      price: 253.92, 
-      rating: 5, 
-      imgUrl: 'https://example.com/greatgatsby.jpg'
-    },
-    { 
-      id: 2, 
-      title: '1984', 
-      author: 'George Orwell', 
-      price: 287.70, 
-      rating: 4, 
-      imgUrl: 'https://example.com/1984.jpg'
-    },
-    { 
-      id: 3, 
-      title: 'To Kill a Mockingbird', 
-      author: 'Harper Lee', 
-      price: 565.43, 
-      rating: 4, 
-      imgUrl: 'https://example.com/mockingbird.jpg'
-    },
-  ];
-
   return (
     <CartProvider>
       <Router>
@@ -50,8 +22,8 @@ function App() {
           <Menubar model={items} />
           <div className="content">
             <Routes>
-              <Route exact path="/" element={<Home books={initialBooks} />} />
-              <Route path="/bookdetails/:id" element={<BookDetails books={initialBooks} />} />
+              <Route exact path="/" element={<Home />} />
+              <Route path="/bookdetails/:id" element={<BookDetails />} />
               <Route path="/shoppingcart" element={<ShoppingCart />} />
             </Routes>
           </div>
