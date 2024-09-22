@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { CartContext } from '../components/CartContent';
 import { fetchBooks } from '../api/bookApi';
+import { Toast } from 'primereact/toast';
 
 const BookDetails = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const { addToCart } = useContext(CartContext);
+  
+  const toast = useRef(null); 
 
   useEffect(() => {
     const getBookDetails = async () => {
@@ -31,6 +33,7 @@ const BookDetails = () => {
 
   return (
     <div className="p-grid book-details">
+      <Toast ref={toast} />
       <div className="p-col-12 p-md-6">
         <img src="https://via.placeholder.com/400" alt={book.title} className="book-details-image" />
       </div>
@@ -40,12 +43,11 @@ const BookDetails = () => {
         <p>Details: {book.details}</p>
         <p>Price: {book.price} TL</p>
         <button className="p-button p-component" onClick={() => {
-  addToCart(book);
-  console.log('Added to cart:', book);
-}}>
-  Add to Cart
-</button>
-
+          addToCart(book);
+          toast.current.show({ severity: 'success', summary: 'Success!', detail: 'Book added to cart!', life: 3000 });
+        }}>
+          Add to Cart
+        </button>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import BookDetails from './components/BookDetails';
 import ShoppingCart from './pages/ShoppingCart';
 import { CartProvider } from './components/CartContent';
+import Checkout from './pages/Checkout';
 
 function App() {
   const items = [
@@ -25,6 +26,7 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route path="/bookdetails/:id" element={<BookDetails />} />
               <Route path="/shoppingcart" element={<ShoppingCart />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </div>
         </div>

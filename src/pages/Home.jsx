@@ -39,12 +39,13 @@ function Home() {
     <div className="home-container">
       <div className="p-d-flex p-jc-center p-mb-4">
         <span className="p-input-icon-left">
-          <i className="pi pi-search" />
+        
           <InputText 
             placeholder="Search by title or author..." 
             value={searchTerm} 
             onChange={handleSearch} 
-            className="p-inputtext-lg"
+            className="p-inputtext-lg  p-mb-3"   style={{ width: '260px', padding: '1rem', borderRadius: '10px' }} 
+
           />
         </span>
       </div>
