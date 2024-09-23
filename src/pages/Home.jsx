@@ -66,7 +66,7 @@ function Home() {
                 <h3 className="p-mb-2">{book.title}</h3>
                 <p className="p-mb-2">Author: {book.author}</p>
                 <p className="p-mb-2">Price: {book.price} TL</p>
-                <Rating value={book.rating} readOnly stars={5} cancel={false} className="p-mb-2" />
+                <Rating value={book.rating} readOnly stars={5} cancel={false} className="p-mb-2 justify-content-center pb-5" />
                 <Button 
                   label="Details" 
                   icon="pi pi-info-circle" 

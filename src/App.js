@@ -10,6 +10,10 @@ import ShoppingCart from './pages/ShoppingCart';
 import { CartProvider } from './components/CartContent';
 import Checkout from './pages/Checkout';
 
+import 'primereact/resources/themes/lara-light-indigo/theme.css'; 
+import 'primereact/resources/primereact.min.css';                  
+import 'primeicons/primeicons.css';   
+
 function App() {
   const items = [
     { label: 'Home', icon: 'pi pi-fw pi-home', command: () => { window.location = "/" } },
